@@ -2,7 +2,7 @@ require "./transaction"
 
 class Block
     property index : Int32
-    property timestamp : Float64
+    property timestamp : Int64
     property transactions = [] of Transaction
     property proof : Int64
     property previousHash : String
