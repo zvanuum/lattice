@@ -5,31 +5,8 @@ require "./blockchain/blockchain"
 blockchain = Blockchain.new
 app = Server::ServerWithRouting.new
 
-# app.get "/mine" do
-#     puts "test"
-# end
-
-app.get "/chain" do 
-    response = JSON.build do |json|
-        json.object do
-            json.field "chain", blockchain.chain.to_json
-            json.field "length", blockchain.chain.size
-        end
-    end
-
-    response
-end
-
-# def chainHandler(blockchain : Blockchain) : String
-#     response = JSON.build do |json|
-#         json.object do
-#             json.field "chain", blockchain.chain.to_json
-#             json.field "length", blockchain.chain.size
-#         end
-#     end
-
-#     response
-# end
+app.get "/mine" do getMineHandler end
+app.get "/chain" do getChainHandler blockchain end
 
 app.post "/transaction/new" do
     puts "test 2"
