@@ -1,5 +1,6 @@
 require "time"
 require "openssl"
+require "json"
 
 require "./block"
 require "./transaction"
@@ -7,6 +8,12 @@ require "./transaction"
 class Blockchain
     property chain
     property currentTransactions
+
+    # JSON.mapping({
+    #     chain: Array(Block),
+    #     currentTransactions: Array(Transaction),
+    #     hashGen: OpenSSL::Digest
+    # })
     
     def initialize
         @chain = [] of Block

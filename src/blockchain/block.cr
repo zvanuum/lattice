@@ -1,3 +1,4 @@
+require "json"
 require "./transaction"
 
 class Block
@@ -6,6 +7,14 @@ class Block
     property transactions = [] of Transaction
     property proof : Int64
     property previousHash : String
+
+    JSON.mapping({
+        index: Int32,
+        timestamp: Int64,
+        transactions: Array(Transaction),
+        proof: Int64,
+        previousHash: String
+    })
 
     def initialize(@index, @timestamp, @transactions, @proof, @previousHash)
     end

@@ -1,26 +1,38 @@
 require "./server/server"
+require "./server/handlers"
 require "./blockchain/blockchain"
 
 blockchain = Blockchain.new
-blockchain.addBlock 1_i64, "1"
-puts blockchain.lastBlock.index
-
-require "http/server"
-
 app = Server::ServerWithRouting.new
 
-app.get "/" do rootHandler end
-app.get "/test" do testHandler end
+# app.get "/mine" do
+#     puts "test"
+# end
 
+app.get "/chain" do 
+    response = JSON.build do |json|
+        json.object do
+            json.field "chain", blockchain.chain.to_json
+            json.field "length", blockchain.chain.size
+        end
+    end
 
-def rootHandler
-    puts "root"
-    "root"
+    response
 end
 
-def testHandler
-    puts "test"
-    "test"
+# def chainHandler(blockchain : Blockchain) : String
+#     response = JSON.build do |json|
+#         json.object do
+#             json.field "chain", blockchain.chain.to_json
+#             json.field "length", blockchain.chain.size
+#         end
+#     end
+
+#     response
+# end
+
+app.post "/transaction/new" do
+    puts "test 2"
 end
 
 app.run 8080
